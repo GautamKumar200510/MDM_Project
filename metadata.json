@@ -1,0 +1,6 @@
+{
+  "name": "Sweet Delights Bakery",
+  "description": "A premium and modern E-commerce website for Sweet Delights Bakery featuring interactive categories, live search, a dynamic sliding cart, heart-animating wishlist, custom checkout, testimonials, and beautiful animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

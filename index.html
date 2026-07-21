@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sweet Delights Bakery - Freshly Baked Happiness</title>
+    
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+
+    <!-- 1. Loading Preloader -->
+    <div id="preloader">
+      <div class="loader-donut" id="loader-spinner"></div>
+      <div class="loader-text" id="loader-caption">Baking Happiness...</div>
+    </div>
+
+    <!-- 2. Toast Notifications Container -->
+    <div class="toast-container-custom" id="toast-container"></div>
+
+    <!-- 3. Sidebar Backdrop Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- 4. Glassmorphism Sticky Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom" id="main-navbar">
+      <div class="container">
+        <!-- Logo Brand -->
+        <a class="navbar-brand navbar-brand-custom" href="#home" id="brand-logo">
+          <i class="fa-solid fa-cake-candles" id="logo-icon"></i> Sweet Delights
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" id="mobile-nav-toggle">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 navbar-collapse-custom" id="nav-links-list">
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom active" href="#home" id="nav-home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#categories" id="nav-categories">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#shop" id="nav-shop">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#offers" id="nav-offers">Special Offers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#features" id="nav-features">Why Choose Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#testimonials" id="nav-testimonials">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#about" id="nav-about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#contact" id="nav-contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right Side Utility Icons -->
+        <div class="nav-icons-group" id="navbar-icons-group">
+          <!-- Dark Mode Toggle -->
+          <button class="icon-btn theme-toggle-btn" id="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          
+          <!-- Wishlist Toggle -->
+          <button class="icon-btn" id="wishlist-toggle-btn-nav" title="View Wishlist" aria-label="View Wishlist">
+            <i class="fa-regular fa-heart"></i>
+            <span class="badge-counter" id="wishlist-counter" style="display: none;">0</span>
+          </button>
+          
+          <!-- Shopping Cart Toggle -->
+          <button class="icon-btn" id="cart-toggle-btn" title="View Cart" aria-label="View Cart">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span class="badge-counter" id="cart-counter" style="display: none;">0</span>
+          </button>
+          
+          <!-- Login Button -->
+          <button class="btn btn-premium d-none d-md-inline-block" id="login-button">
+            <i class="fa-solid fa-user-lock me-1"></i> Login
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 5. Slide-In Shopping Cart Sidebar -->
+    <aside class="cart-sidebar" id="cart-sidebar">
+      <div class="cart-header" id="cart-sidebar-header">
+        <h4 class="cart-title" id="cart-sidebar-title">Your Sweet Basket</h4>
+        <button class="cart-close-btn" id="cart-close-btn" aria-label="Close Cart">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="cart-body" id="cart-list">
+        <!-- Cart Items populated by script.js -->
+      </div>
+      <div class="cart-footer" id="cart-sidebar-footer">
+        <div class="calculation-row" id="subtotal-row">
+          <span>Subtotal</span>
+          <strong id="cart-subtotal">$0.00</strong>
+        </div>
+        <div class="calculation-row" id="gst-row">
+          <span>GST (18%)</span>
+          <strong id="cart-gst">$0.00</strong>
+        </div>
+        <div class="calculation-row" id="delivery-row">
+          <span>Delivery Charges</span>
+          <strong id="cart-delivery">$0.00</strong>
+        </div>
+        <div class="calculation-row grand-total" id="grand-total-row">
+          <span>Grand Total</span>
+          <strong id="cart-grand-total">$0.00</strong>
+        </div>
+        <button class="btn btn-premium checkout-btn" id="checkout-btn">
+          Proceed to Checkout <i class="fa-solid fa-arrow-right-long ms-2"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 6. Slide-In Wishlist Sidebar -->
+    <aside class="wishlist-sidebar" id="wishlist-sidebar">
+      <div class="cart-header" id="wishlist-sidebar-header">
+        <h4 class="cart-title" id="wishlist-sidebar-title">My Sweet Wishlist</h4>
+        <button class="cart-close-btn" id="wishlist-close-btn" aria-label="Close Wishlist">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="cart-body" id="wishlist-list">
+        <!-- Wishlist items populated by script.js -->
+      </div>
+    </aside>
+
+    <!-- 7. Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="hero-shape-1" id="hero-bg-vector-1"></div>
+      <div class="hero-shape-2" id="hero-bg-vector-2"></div>
+      
+      <!-- Floating Images Decors -->
+      <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=200" alt="Cookie Decor" class="floating-item floating-cookie" id="float-cookie-img" referrerPolicy="no-referrer">
+      <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=200" alt="Croissant Decor" class="floating-item floating-croissant" id="float-croissant-img" referrerPolicy="no-referrer">
+      <div class="floating-badge badge-happy" id="float-happy-badge">
+        <i class="fa-solid fa-face-smile-beam"></i>
+        <div>
+          <h6 class="mb-0 fw-bold">100% Organic</h6>
+          <span class="text-xs text-muted">Daily Fresh Baked</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 text-center text-lg-start animate-fade-up active" id="hero-text-col">
+            <span class="section-tag" id="hero-tag">Welcome to Sweet Delights</span>
+            <h1 class="hero-title" id="hero-main-title">
+              Freshly Baked <span>Happiness</span> Every Day
+            </h1>
+            <p class="hero-subtitle" id="hero-sub">
+              Experience the perfect harmony of premium organic ingredients, passion, and time-honored artisanal baking methods. From warm rustic sourdough breads to stunning custom cakes, we bake magic into every single bite.
+            </p>
+            <div class="d-flex gap-3 justify-content-center justify-content-lg-start" id="hero-action-buttons">
+              <a href="#shop" class="btn btn-premium" id="hero-shop-btn">
+                <i class="fa-solid fa-store me-1"></i> Shop Now
+              </a>
+              <a href="#categories" class="btn btn-premium-outline" id="hero-menu-btn">
+                <i class="fa-solid fa-utensils me-1"></i> Explore Menu
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6 mt-5 mt-lg-0 hero-img-container animate-zoom active" id="hero-visual-col">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600" alt="Fresh Baker Flour" class="hero-main-img" id="hero-hero-img" referrerPolicy="no-referrer">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Categories Section -->
+    <section class="py-5" id="categories" style="position: relative;">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="categories-section-header">
+          <span class="section-tag" id="categories-tag">Exquisite Collections</span>
+          <h2 class="section-title" id="categories-title">Our Baking Specialties</h2>
+        </div>
+        
+        <div class="row g-4" id="categories-grid">
+          <!-- Cakes Category -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="category-col-cakes">
+            <div class="category-card" id="cat-card-cakes">
+              <div class="category-img-wrapper" id="cat-img-wrap-cakes">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600" alt="Cakes Category" class="category-img" loading="lazy" referrerPolicy="no-referrer">
+              </div>
+              <div class="category-body" id="cat-body-cakes">
+                <h3 class="category-title" id="cat-title-cakes">Decadent Cakes</h3>
+                <p class="category-desc" id="cat-desc-cakes">Custom-crafted celebration cakes and rich chocolate sponges designed to sweeten life's most unforgettable milestones.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pastries Category -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="category-col-pastries">
+            <div class="category-card" id="cat-card-pastries">
+              <div class="category-img-wrapper" id="cat-img-wrap-pastries">
+                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=600" alt="Pastries Category" class="category-img" loading="lazy" referrerPolicy="no-referrer">
+              </div>
+              <div class="category-body" id="cat-body-pastries">
+                <h3 class="category-title" id="cat-title-pastries">Delicate Pastries</h3>
+                <p class="category-desc" id="cat-desc-pastries">Crispy, melt-in-the-mouth cheesecakes, sweet tarts, and buttery laminated croissants baked fresh every single morning.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cookies Category -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="category-col-cookies">
+            <div class="category-card" id="cat-card-cookies">
+              <div class="category-img-wrapper" id="cat-img-wrap-cookies">
+                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=600" alt="Cookies Category" class="category-img" loading="lazy" referrerPolicy="no-referrer">
+              </div>
+              <div class="category-body" id="cat-body-cookies">
+                <h3 class="category-title" id="cat-title-cookies">Artisanal Cookies</h3>
+                <p class="category-desc" id="cat-desc-cookies">Soft-baked, warm gourmet cookies loaded with chocolate chunks, nutty raisins, and organic ingredients.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bread Category -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="category-col-bread">
+            <div class="category-card" id="cat-card-bread">
+              <div class="category-img-wrapper" id="cat-img-wrap-bread">
+                <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600" alt="Bread Category" class="category-img" loading="lazy" referrerPolicy="no-referrer">
+              </div>
+              <div class="category-body" id="cat-body-bread">
+                <h3 class="category-title" id="cat-title-bread">Artisanal Sourdough</h3>
+                <p class="category-desc" id="cat-desc-bread">Crusty exterior, soft inside slow-fermented organic breads baked in traditional brick ovens for full complex flavors.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Donuts Category -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="category-col-donuts">
+            <div class="category-card" id="cat-card-donuts">
+              <div class="category-img-wrapper" id="cat-img-wrap-donuts">
+                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=600" alt="Donuts Category" class="category-img" loading="lazy" referrerPolicy="no-referrer">
+              </div>
+              <div class="category-body" id="cat-body-donuts">
+                <h3 class="category-title" id="cat-title-donuts">Glazed Donuts</h3>
+                <p class="category-desc" id="cat-desc-donuts">Yeast-raised brioche donuts dipped in authentic chocolate glazes, filled with sweet berry jams and creams.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cupcakes Category -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="category-col-cupcakes">
+            <div class="category-card" id="cat-card-cupcakes">
+              <div class="category-img-wrapper" id="cat-img-wrap-cupcakes">
+                <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=600" alt="Cupcakes Category" class="category-img" loading="lazy" referrerPolicy="no-referrer">
+              </div>
+              <div class="category-body" id="cat-body-cupcakes">
+                <h3 class="category-title" id="cat-title-cupcakes">Whimsical Cupcakes</h3>
+                <p class="category-desc" id="cat-desc-cupcakes">Adorable individual cakes piled high with gourmet cream cheese frosting, buttercream, and whimsical sprinkles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Product Filtering & Live Search Section -->
+    <section class="py-5" id="shop">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="shop-section-header">
+          <span class="section-tag" id="shop-tag">Online Treats Store</span>
+          <h2 class="section-title" id="shop-title">Discover Our Daily Creations</h2>
+        </div>
+
+        <!-- Filter bar with live search and sort selectors -->
+        <div class="filter-container animate-fade-up" id="shop-filter-bar">
+          <div class="row align-items-center g-3">
+            <!-- Filter buttons -->
+            <div class="col-xl-7 col-lg-12" id="filter-btns-col">
+              <div class="filter-btn-group" id="filter-buttons-group">
+                <button class="filter-btn active" data-category="all" id="filter-btn-all">All Treats</button>
+                <button class="filter-btn" data-category="cake" id="filter-btn-cake">Cakes</button>
+                <button class="filter-btn" data-category="pastries" id="filter-btn-pastries">Pastries</button>
+                <button class="filter-btn" data-category="cookies" id="filter-btn-cookies">Cookies</button>
+                <button class="filter-btn" data-category="bread" id="filter-btn-bread">Bread</button>
+                <button class="filter-btn" data-category="donuts" id="filter-btn-donuts">Donuts</button>
+                <button class="filter-btn" data-category="cupcakes" id="filter-btn-cupcakes">Cupcakes</button>
+              </div>
+            </div>
+            
+            <!-- Live Search Bar -->
+            <div class="col-xl-3 col-md-8" id="search-bar-col">
+              <div class="search-input-wrapper" id="search-bar-wrapper">
+                <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search delicious sweet treats..." id="search-input" aria-label="Search delicious treats">
+              </div>
+            </div>
+            
+            <!-- Sorting Option -->
+            <div class="col-xl-2 col-md-4" id="sort-bar-col">
+              <select class="sort-select" id="sort-select" aria-label="Sort treats by criteria">
+                <option value="default" id="sort-opt-default">Sort By: Default</option>
+                <option value="price-low-high" id="sort-opt-low-high">Price: Low to High</option>
+                <option value="price-high-low" id="sort-opt-high-low">Price: High to Low</option>
+                <option value="rating" id="sort-opt-rating">Highest Rated</option>
+                <option value="newest" id="sort-opt-newest">Newest Creations</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Products Container -->
+        <div class="row" id="products-container">
+          <!-- Over 12 detailed product cards populated by script.js dynamically to support instantaneous live filter/search/sort! -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Special Offers Countdown Banner -->
+    <section class="container" id="special-offers-container">
+      <div class="special-offer-section animate-zoom" id="offers">
+        <div class="special-offer-shape" id="offer-vector-shape"></div>
+        <div class="row align-items-center position-relative z-1 px-4 px-md-5">
+          <div class="col-lg-6" id="offer-text-col">
+            <span class="offer-badge" id="offer-badge-tag">FLASH WEEKEND DEAL</span>
+            <h2 class="offer-title" id="offer-main-title">Sweeten Your Day with 50% OFF</h2>
+            <p class="offer-desc" id="offer-description">Indulge in our exquisite range of handmade organic pastries and artisanal donuts at half the price. Only available this weekend for self-pickup or same-day delivery.</p>
+            
+            <!-- Countdown Timer -->
+            <div class="countdown-container" id="countdown-timer">
+              <div class="countdown-box" id="timer-box-days">
+                <span class="countdown-num" id="timer-days">03</span>
+                <span class="countdown-label">Days</span>
+              </div>
+              <div class="countdown-box" id="timer-box-hours">
+                <span class="countdown-num" id="timer-hours">12</span>
+                <span class="countdown-label">Hours</span>
+              </div>
+              <div class="countdown-box" id="timer-box-mins">
+                <span class="countdown-num" id="timer-mins">45</span>
+                <span class="countdown-label">Mins</span>
+              </div>
+              <div class="countdown-box" id="timer-box-secs">
+                <span class="countdown-num" id="timer-secs">59</span>
+                <span class="countdown-label">Secs</span>
+              </div>
+            </div>
+
+            <a href="#shop" class="btn btn-premium bg-white text-dark border-0 hover:bg-light" id="offer-shop-now-btn" style="background: #fff; color: #8B4513 !important;">
+              <i class="fa-solid fa-gift me-2"></i> Claim Discount Now
+            </a>
+          </div>
+          <div class="col-lg-6 mt-5 mt-lg-0 text-center" id="offer-visual-col">
+            <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=500" alt="Vibrant Macarons Offer" class="img-fluid rounded-4 shadow-lg border border-4 border-white" id="offer-main-img" style="max-height: 380px; object-fit: cover;" referrerPolicy="no-referrer">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Why Choose Us Section -->
+    <section class="py-5" id="features">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="features-header">
+          <span class="section-tag" id="features-tag">The Sweet Difference</span>
+          <h2 class="section-title" id="features-title">Why Choose Sweet Delights?</h2>
+        </div>
+        
+        <div class="row g-4" id="features-grid">
+          <!-- Feature 1: Fresh Ingredients -->
+          <div class="col-lg-3 col-sm-6 animate-fade-up" id="feature-col-ingredients">
+            <div class="feature-card" id="feat-card-ingredients">
+              <div class="feature-icon-wrapper" id="feat-icon-wrap-ingredients">
+                <i class="fa-solid fa-seedling"></i>
+              </div>
+              <h3 class="feature-title" id="feat-title-ingredients">Fresh Ingredients</h3>
+              <p class="feature-desc" id="feat-desc-ingredients">We source only 100% organic flour, premium Belgian chocolates, and fresh pasture dairy from local sustainable farms.</p>
+            </div>
+          </div>
+          
+          <!-- Feature 2: Same Day Delivery -->
+          <div class="col-lg-3 col-sm-6 animate-fade-up" id="feature-col-delivery">
+            <div class="feature-card" id="feat-card-delivery">
+              <div class="feature-icon-wrapper" id="feat-icon-wrap-delivery">
+                <i class="fa-solid fa-truck-fast"></i>
+              </div>
+              <h3 class="feature-title" id="feat-title-delivery">Same Day Delivery</h3>
+              <p class="feature-desc" id="feat-desc-delivery">Hot breads and fresh cakes delivered directly to your doorstep within hours of baking, sealed for absolute freshness.</p>
+            </div>
+          </div>
+          
+          <!-- Feature 3: Quality Assurance -->
+          <div class="col-lg-3 col-sm-6 animate-fade-up" id="feature-col-quality">
+            <div class="feature-card" id="feat-card-quality">
+              <div class="feature-icon-wrapper" id="feat-icon-wrap-quality">
+                <i class="fa-solid fa-award"></i>
+              </div>
+              <h3 class="feature-title" id="feat-title-quality">Quality Assurance</h3>
+              <p class="feature-desc" id="feat-desc-quality">Each baked masterpiece undergoes strict culinary inspections by certified master bakers before leaving our kitchen.</p>
+            </div>
+          </div>
+          
+          <!-- Feature 4: Secure Payment -->
+          <div class="col-lg-3 col-sm-6 animate-fade-up" id="feature-col-payment">
+            <div class="feature-card" id="feat-card-payment">
+              <div class="feature-icon-wrapper" id="feat-icon-wrap-payment">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3 class="feature-title" id="feat-title-payment">Secure Checkout</h3>
+              <p class="feature-desc" id="feat-desc-payment">Shop with peace of mind. Our state-of-the-art checkout pipeline supports bank-grade 256-bit secure SSL payments.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Customer Testimonials Section -->
+    <section class="py-5" id="testimonials">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="testimonials-header">
+          <span class="section-tag" id="testimonials-tag">Customer Love</span>
+          <h2 class="section-title" id="testimonials-title">What Our Sweets Lovers Say</h2>
+        </div>
+
+        <div class="row g-4" id="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="test-col-1">
+            <div class="testimonial-card" id="test-card-1">
+              <i class="fa-solid fa-quote-left quote-icon" id="quote-icon-1"></i>
+              <div class="testimonial-rating" id="test-rating-1">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text" id="test-text-1">"The Artisan Blueberry Cheesecake is out of this world! The crust is beautifully buttery, and the berries are incredibly fresh and sweet. Sweet Delights has officially become my go-to bakery!"</p>
+              <div class="testimonial-user" id="test-user-1">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" alt="Sophia Carter Client" class="testimonial-user-img" id="test-avatar-1" referrerPolicy="no-referrer">
+                <div>
+                  <h4 class="testimonial-user-name" id="test-name-1">Sophia Carter</h4>
+                  <span class="testimonial-user-role" id="test-role-1">Custom Cake Enthusiast</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="test-col-2">
+            <div class="testimonial-card" id="test-card-2">
+              <i class="fa-solid fa-quote-left quote-icon" id="quote-icon-2"></i>
+              <div class="testimonial-rating" id="test-rating-2">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <p class="testimonial-text" id="test-text-2">"I order their Slow-Fermented Garlic Sourdough Bread every week. The crust is perfectly crispy, chewy, and aromatic. Truly authentic baking skills. Delivery is always hot and prompt!"</p>
+              <div class="testimonial-user" id="test-user-2">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" alt="Liam Harrison Client" class="testimonial-user-img" id="test-avatar-2" referrerPolicy="no-referrer">
+                <div>
+                  <h4 class="testimonial-user-name" id="test-name-2">Liam Harrison</h4>
+                  <span class="testimonial-user-role" id="test-role-2">Weekly Bread Subscriber</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 animate-fade-up" id="test-col-3">
+            <div class="testimonial-card" id="test-card-3">
+              <i class="fa-solid fa-quote-left quote-icon" id="quote-icon-3"></i>
+              <div class="testimonial-rating" id="test-rating-3">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text" id="test-text-3">"We commissioned Sweet Delights for our wedding chocolate fudge tower, and our guests could not stop raving! Incredible professional taste, outstanding customer care, and stunning presentation."</p>
+              <div class="testimonial-user" id="test-user-3">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200" alt="Emma Davies Client" class="testimonial-user-img" id="test-avatar-3" referrerPolicy="no-referrer">
+                <div>
+                  <h4 class="testimonial-user-name" id="test-name-3">Olivia Davies</h4>
+                  <span class="testimonial-user-role" id="test-role-3">Happy Bride & Event Organizer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Gallery Section (Masonry Layout) -->
+    <section class="py-5" id="gallery-section-id">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="gallery-header">
+          <span class="section-tag" id="gallery-tag">The Bakery Life</span>
+          <h2 class="section-title" id="gallery-title">Our Kitchen Stories</h2>
+        </div>
+
+        <div class="gallery-grid animate-zoom" id="gallery-grid-element">
+          <!-- Item 1: Wide -->
+          <div class="gallery-item wide" id="gallery-item-1">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=500" alt="Artisanal Breads" loading="lazy" referrerPolicy="no-referrer">
+            <div class="gallery-overlay" id="gallery-overlay-1">
+              <h4 class="gallery-title">Slow Sourdough Proving</h4>
+              <span class="gallery-subtitle">Slow fermentation for rich, deep flavors</span>
+            </div>
+          </div>
+
+          <!-- Item 2: Tall -->
+          <div class="gallery-item tall" id="gallery-item-2">
+            <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=500" alt="Frosting cupcakes" loading="lazy" referrerPolicy="no-referrer">
+            <div class="gallery-overlay" id="gallery-overlay-2">
+              <h4 class="gallery-title">Gourmet Buttercream Piping</h4>
+              <span class="gallery-subtitle">Perfect frosting peaks on custom cupcakes</span>
+            </div>
+          </div>
+
+          <!-- Item 3: Regular -->
+          <div class="gallery-item" id="gallery-item-3">
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=500" alt="Fresh Croissants" loading="lazy" referrerPolicy="no-referrer">
+            <div class="gallery-overlay" id="gallery-overlay-3">
+              <h4 class="gallery-title">Normandy Lamination</h4>
+              <span class="gallery-subtitle">Flaky layers of golden organic butter croissants</span>
+            </div>
+          </div>
+
+          <!-- Item 4: Regular -->
+          <div class="gallery-item" id="gallery-item-4">
+            <img src="https://images.unsplash.com/photo-1558961309-dbdf71791a5a?q=80&w=500" alt="Warm cookies basket" loading="lazy" referrerPolicy="no-referrer">
+            <div class="gallery-overlay" id="gallery-overlay-4">
+              <h4 class="gallery-title">Warm Cookies Cooling</h4>
+              <span class="gallery-subtitle">Freshly baked chocolate chips out of the oven</span>
+            </div>
+          </div>
+
+          <!-- Item 5: Tall -->
+          <div class="gallery-item tall" id="gallery-item-5">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=500" alt="Preparing Cake" loading="lazy" referrerPolicy="no-referrer">
+            <div class="gallery-overlay" id="gallery-overlay-5">
+              <h4 class="gallery-title">Double Fudge Sculpting</h4>
+              <span class="gallery-subtitle">Carefully spreading thick belgian ganache</span>
+            </div>
+          </div>
+
+          <!-- Item 6: Wide -->
+          <div class="gallery-item wide" id="gallery-item-6">
+            <img src="https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=500" alt="Bakery brick oven" loading="lazy" referrerPolicy="no-referrer">
+            <div class="gallery-overlay" id="gallery-overlay-6">
+              <h4 class="gallery-title">Artisanal Hearth Baking</h4>
+              <span class="gallery-subtitle">Traditional steam ovens baking fresh rustic loafs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. About Bakery Story -->
+    <section class="py-5" id="about">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="about-header">
+          <span class="section-tag" id="about-tag">Heritage & Heart</span>
+          <h2 class="section-title" id="about-title">The Sweet Delights Story</h2>
+        </div>
+
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6 animate-fade-up" id="about-text-col">
+            <h3 class="font-display mb-4 fw-bold text-dark" id="about-story-title">Crafting Sweet Smiles Since 2012</h3>
+            <p class="text-muted leading-relaxed mb-4" id="about-story-para-1">What started as a modest local family recipe kitchen in our grandmother's countryside cottage has grown into a beloved premium bakery. Although we've expanded, our unwavering commitment to quality and attention to tiny details remains exactly the same.</p>
+            <p class="text-muted leading-relaxed mb-4" id="about-story-para-2">Every morning, our oven fires up before dawn. We handcraft all elements of our catalog in small batches to preserve integrity of taste and visual artistry. To us, baking is not a commercial pipeline—it is a labor of love.</p>
+            
+            <div class="row g-3 mt-4" id="about-credentials-row">
+              <div class="col-6">
+                <h5 class="fw-bold text-dark mb-1" id="about-cred-1-title"><i class="fa-solid fa-medal text-warning me-2"></i> 100% Certified</h5>
+                <p class="text-xs text-muted mb-0">Organic local ingredients</p>
+              </div>
+              <div class="col-6">
+                <h5 class="fw-bold text-dark mb-1" id="about-cred-2-title"><i class="fa-solid fa-heart-pulse text-danger me-2"></i> No Preservatives</h5>
+                <p class="text-xs text-muted mb-0">No artificial additives used</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6" id="about-cards-col">
+            <div class="row g-4">
+              <!-- Mission Card -->
+              <div class="col-sm-6 animate-fade-up" id="mission-card-col">
+                <div class="about-card" id="about-card-mission">
+                  <i class="fa-solid fa-bullseye about-card-icon" id="mission-icon"></i>
+                  <h4 class="fw-bold mb-3 font-display" id="mission-title">Our Mission</h4>
+                  <p class="text-sm text-muted mb-0">To deliver wholesome, freshly baked happiness to local communities daily, utilizing only the finest organic ingredients and traditional, time-honored artisanal baking practices.</p>
+                </div>
+              </div>
+              
+              <!-- Vision Card -->
+              <div class="col-sm-6 animate-fade-up" id="vision-card-col">
+                <div class="about-card" id="about-card-vision">
+                  <i class="fa-solid fa-eye about-card-icon" id="vision-icon"></i>
+                  <h4 class="fw-bold mb-3 font-display" id="vision-title">Our Vision</h4>
+                  <p class="text-sm text-muted mb-0">To define high-quality bakery craftsmanship, inspiring local baking culture globally, and setting eco-sustainable kitchen models for future organic food systems.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. Contact Section -->
+    <section class="py-5" id="contact">
+      <div class="container">
+        <div class="section-header animate-fade-up" id="contact-header">
+          <span class="section-tag" id="contact-tag">Get In Touch</span>
+          <h2 class="section-title" id="contact-title">Visit Our Sweet Bakery</h2>
+        </div>
+
+        <div class="row g-4">
+          <!-- Left side info cards -->
+          <div class="col-lg-4 animate-fade-up" id="contact-info-col">
+            <div class="contact-info-card" id="contact-info-wrapper">
+              <h4 class="font-display mb-4 fw-bold text-dark" id="contact-info-title">Opening Hours</h4>
+              <p class="small text-muted mb-4">Feel free to visit us or call us during business hours. We love welcoming guests!</p>
+              
+              <!-- Contact Item: Address -->
+              <div class="contact-info-item" id="contact-item-address">
+                <div class="contact-icon" id="contact-icon-address">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <div class="contact-text" id="contact-text-address">
+                  <h5>Bakery Address</h5>
+                  <p>742 Sweet Lavender Lane, Chocolate District, San Francisco, CA 94103</p>
+                </div>
+              </div>
+
+              <!-- Contact Item: Phone -->
+              <div class="contact-info-item" id="contact-item-phone">
+                <div class="contact-icon" id="contact-icon-phone">
+                  <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <div class="contact-text" id="contact-text-phone">
+                  <h5>Call Our Kitchen</h5>
+                  <p>+1 (555) 482-9012 (Ordering Desk)<br>+1 (555) 304-2045 (Custom Cakes)</p>
+                </div>
+              </div>
+
+              <!-- Contact Item: Email -->
+              <div class="contact-info-item" id="contact-item-email">
+                <div class="contact-icon" id="contact-icon-email">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <div class="contact-text" id="contact-text-email">
+                  <h5>Send Sweet Mail</h5>
+                  <p>orders@sweetdelightsbakery.com<br>hello@sweetdelightsbakery.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle side Form -->
+          <div class="col-lg-4 col-md-6 animate-fade-up" id="contact-form-col">
+            <div class="contact-form-card" id="contact-form-wrapper">
+              <h4 class="font-display mb-4 fw-bold text-dark" id="contact-form-title">Send a Message</h4>
+              <form id="contact-form">
+                <div class="mb-3">
+                  <label for="contact-name" class="form-label text-xs fw-bold">Your Name</label>
+                  <input type="text" class="form-control form-control-custom" id="contact-name" placeholder="John Doe" required>
+                </div>
+                <div class="mb-3">
+                  <label for="contact-email" class="form-label text-xs fw-bold">Email Address</label>
+                  <input type="email" class="form-control form-control-custom" id="contact-email" placeholder="johndoe@gmail.com" required>
+                </div>
+                <div class="mb-3">
+                  <label for="contact-message" class="form-label text-xs fw-bold">What are you craving?</label>
+                  <textarea class="form-control form-control-custom" id="contact-message" rows="4" placeholder="Specify custom cake requests, ordering questions..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-premium w-100" id="contact-submit-btn">
+                  Send Message <i class="fa-solid fa-paper-plane ms-2"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right side Google Map Placeholder -->
+          <div class="col-lg-4 col-md-6 animate-zoom" id="contact-map-col">
+            <div class="map-placeholder" id="contact-map-wrapper">
+              <!-- Google Map embeds styled under copper colors -->
+              <iframe id="google-map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.56589254346!2d-122.4116492241604!3d37.77677467198539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1m3!2i12028!2d-122.40907428522031!3d37.77492937975931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. Newsletter Section -->
+    <section class="container mb-5" id="newsletter-container-section">
+      <div class="newsletter-section text-center animate-zoom" id="newsletter">
+        <span class="section-tag" id="news-tag">Baking Club</span>
+        <h2 class="font-display fw-bold mb-3" id="news-title" style="font-size: 2.2rem;">Join Our Delights Club</h2>
+        <p class="text-muted mx-auto mb-4" id="news-desc" style="max-width: 500px;">Subscribe to our newsletters and gain exclusive early-access to seasonal baking catalogs, secret cake recipes, and 15% discount coupons.</p>
+        
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" class="form-control form-control-custom" placeholder="Enter your email address..." required aria-label="Enter email to subscribe">
+          <button type="submit" class="btn btn-premium border-0" id="news-subscribe-btn">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 17. Professional Footer -->
+    <footer class="footer" id="main-footer">
+      <div class="container">
+        <div class="row g-4">
+          <!-- Widget 1: Brand Info -->
+          <div class="col-lg-4 col-md-6" id="footer-widget-brand">
+            <h4 class="footer-widget-title" id="foot-brand-title">Sweet Delights</h4>
+            <p class="text-muted mt-3" id="foot-brand-desc" style="line-height: 1.7; max-width: 320px;">We craft premium organic breads, celebration cakes, and delicious croissants using grandfather secrets. Experience artisanal warmth baked daily.</p>
+            <div class="social-icons mt-4" id="foot-social-wrapper">
+              <a href="#" class="social-icon-btn" id="foot-social-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-icon-btn" id="foot-social-insta" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="social-icon-btn" id="foot-social-pinterest" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+              <a href="#" class="social-icon-btn" id="foot-social-twitter" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+
+          <!-- Widget 2: Quick Links -->
+          <div class="col-lg-2 col-md-6" id="footer-widget-links">
+            <h4 class="footer-widget-title" id="foot-links-title">Quick Links</h4>
+            <ul class="footer-links" id="foot-links-list">
+              <li><a href="#home">Home Base</a></li>
+              <li><a href="#categories">Our specialties</a></li>
+              <li><a href="#shop">Store Menu</a></li>
+              <li><a href="#offers">Holiday Deals</a></li>
+              <li><a href="#about">Heritage Story</a></li>
+            </ul>
+          </div>
+
+          <!-- Widget 3: Customer Service -->
+          <div class="col-lg-3 col-md-6" id="footer-widget-services">
+            <h4 class="footer-widget-title" id="foot-service-title">Customer Service</h4>
+            <ul class="footer-links" id="foot-service-list">
+              <li><a href="#">Contact Support</a></li>
+              <li><a href="#">F.A.Q & Custom Ordering</a></li>
+              <li><a href="#">Shipping & Tracking Policies</a></li>
+              <li><a href="#">Organic ingredients Sourcing</a></li>
+              <li><a href="#">Bakery Hygiene Certificates</a></li>
+            </ul>
+          </div>
+
+          <!-- Widget 4: Working Hours -->
+          <div class="col-lg-3 col-md-6" id="footer-widget-hours">
+            <h4 class="footer-widget-title" id="foot-hours-title">Working Hours</h4>
+            <ul class="footer-links text-muted" id="foot-hours-list" style="padding-left:0;">
+              <li class="mb-2"><strong class="text-dark">Monday - Friday:</strong><br>6:00 AM - 8:00 PM</li>
+              <li class="mb-2"><strong class="text-dark">Saturday - Sunday:</strong><br>7:00 AM - 9:00 PM</li>
+              <li><strong class="text-dark">Delivery desk:</strong><br>Same day (Order before 3 PM)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start" id="footer-copyright-block">
+          <p class="text-muted mb-2 mb-md-0" id="foot-copy-text">&copy; 2026 Sweet Delights Bakery. All rights reserved. Made with sweet chocolate love.</p>
+          <div class="d-flex gap-3" id="foot-copy-policies">
+            <a href="#" class="text-muted text-xs">Privacy Policy</a>
+            <a href="#" class="text-muted text-xs">Terms of Service</a>
+            <a href="#" class="text-muted text-xs">Cookie Preferences</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 18. Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Back To Top" aria-label="Scroll Back To Top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- 19. Product Quick View Modal -->
+    <div class="modal fade modal-custom" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" id="quickview-modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-between">
+            <h5 class="modal-title font-display fw-bold" id="quickViewModalLabel">Product Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="qv-modal-close-btn"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-6" id="qv-image-column">
+                <div class="modal-img-wrapper" id="qv-img-container">
+                  <img src="" alt="Quick View Product" class="modal-img" id="qv-img" referrerPolicy="no-referrer">
+                </div>
+              </div>
+              <div class="col-md-6 d-flex flex-column" id="qv-details-column">
+                <span class="modal-category" id="qv-category">CAKES</span>
+                <h3 class="modal-title-text text-dark" id="qv-name">Chocolate Cake</h3>
+                <div class="modal-rating" id="qv-ratings-row">
+                  <span id="qv-stars" style="color: #FFB703;"></span>
+                  <span class="text-xs text-muted ms-2" id="qv-rating-count">(124 reviews)</span>
+                </div>
+                <p class="modal-desc" id="qv-desc">Warm delicious chocolate cake layers with custom frosting.</p>
+                <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top" id="qv-action-row" style="border-top: 1px dashed var(--glass-border) !important;">
+                  <div>
+                    <span class="text-xs text-muted d-block">Special Price</span>
+                    <strong class="fs-3 text-primary" id="qv-price" style="color: var(--primary-color); font-family: var(--font-sans);">$24.99</strong>
+                  </div>
+                  <button class="btn btn-premium px-4 py-2" id="qv-add-to-cart-btn">
+                    <i class="fa-solid fa-cart-shopping me-2"></i> Add to Basket
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Custom JS E-Commerce Engine -->
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
